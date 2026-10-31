@@ -448,6 +448,25 @@ button { font: inherit; }
   filter: drop-shadow(0 5px 12px rgba(0,0,0,.5));
 }
 
+.easter-egg-gif {
+  position: fixed;
+  z-index: 10;
+  top: 50%;
+  left: 50%;
+  display: block;
+  width: min(260px, 58vw);
+  height: auto;
+  pointer-events: none;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(.88);
+  transition: opacity .2s ease, transform .2s ease;
+}
+
+.easter-egg-gif.is-visible {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
 .sr-only {
   position: absolute;
   width: 1px;

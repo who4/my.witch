@@ -51,6 +51,8 @@
   const volumeDownButton = document.getElementById("volume-down");
   const controlOverlay = document.getElementById("btn-overlay");
   const statusNode = document.getElementById("player-status");
+  const easterEggGif = document.getElementById("easter-egg-gif");
+  const EASTER_EGG_DURATION = 5200;
 
   let currentIndex = 0;
   let lyricsByTrack = {};
@@ -64,6 +66,7 @@
   let lastSvgSpawn = 0;
   let svgSpawnInterval = 1050;
   let pointer = { x: -1000, y: -1000, active: false, touch: false, until: 0 };
+  let easterEggTimer = null;
 
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -91,6 +94,22 @@
   function setStatus(message) {
     statusNode.textContent = message;
   }
+
+  function showEasterEgg() {
+    if (!easterEggGif) return;
+
+    clearTimeout(easterEggTimer);
+    easterEggGif.classList.remove("is-visible");
+    easterEggGif.src = "./kissing_heart.gif?play=" + Date.now();
+    void easterEggGif.offsetWidth;
+    easterEggGif.classList.add("is-visible");
+
+    easterEggTimer = window.setTimeout(() => {
+      easterEggGif.classList.remove("is-visible");
+    }, EASTER_EGG_DURATION);
+  }
+
+  window.showKissingHeartEasterEgg = showEasterEgg;
 
   // Sup FUCKER.
   function updateCover(track) {
@@ -566,6 +585,7 @@
   audio.addEventListener("seeked", handleSeek);
   audio.addEventListener("timeupdate", syncLyrics);
   audio.addEventListener("ended", () => {
+    showEasterEgg();
     loadTrack((currentIndex + 1) % TRACKS.length, true);
   });
   audio.addEventListener("error", () => {
