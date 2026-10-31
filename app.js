@@ -14,7 +14,7 @@
     {
       title: "Cowboys and Angels",
       artist: "George Michael",
-      file: "cowboys and angels.mp3",
+      file: "Cowboys and Angels.mp3",
       coverNames: ["Cowboys_and_Angels", "Cowboys and Angels"],
       colors: ["#151820", "#4a3941"]
     },
