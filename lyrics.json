@@ -1,0 +1,603 @@
+{
+  "_meta": {
+    "format": "local-webvtt-converted",
+    "version": 1,
+    "timing": "Timestamps are seconds from the beginning of the matching local MP3. Start and end values are preserved from the supplied VTT files.",
+    "synchronization": "Line-level timing. The supplied VTT files do not contain word-level timestamps.",
+    "networkRequiredForLyrics": false
+  },
+  "_tracks": {
+    "My witch.mp3": {
+      "title": "She's My Witch",
+      "artist": "Kip Tyler",
+      "source": "captions/My witch - Kip Tyler.vtt",
+      "cueCount": 16
+    },
+    "Cowboys_and_Angels.mp3": {
+      "title": "Cowboys and Angels",
+      "artist": "George Michael",
+      "source": "captions/Cowboys and Angels - George Michael.vtt",
+      "cueCount": 51
+    },
+    "Nine Inch Nails - Closer.mp3": {
+      "title": "Closer",
+      "artist": "Nine Inch Nails",
+      "source": "captions/Nine Inch Nails - Closer.vtt",
+      "cueCount": 34
+    },
+    "Adadido - He Asked Me to Quit Smoking.mp3": {
+      "title": "He Asked Me to Quit Smoking",
+      "artist": "Adadido (cover)",
+      "source": "captions/Adadido - He Asked Me to Quit Smoking.vtt",
+      "cueCount": 11
+    }
+  },
+  "My witch.mp3": [
+    {
+      "time": 12.57,
+      "end": 17.01,
+      "text": "Got hair as black as night"
+    },
+    {
+      "time": 17.98,
+      "end": 21.899,
+      "text": "Got a skirt that's a-ooh so tight"
+    },
+    {
+      "time": 21.98,
+      "end": 27.46,
+      "text": "I'm tellin' you I've got an itch"
+    },
+    {
+      "time": 30.179,
+      "end": 32.259,
+      "text": "She's my witch"
+    },
+    {
+      "time": 33.74,
+      "end": 38.38,
+      "text": "Loveable, she's good and bad"
+    },
+    {
+      "time": 38.88,
+      "end": 43.24,
+      "text": "Mess around and you been had"
+    },
+    {
+      "time": 43.979,
+      "end": 48.119,
+      "text": "Got a key and the master switch"
+    },
+    {
+      "time": 50.96,
+      "end": 53.09,
+      "text": "She's my witch"
+    },
+    {
+      "time": 54.42,
+      "end": 58.399,
+      "text": "Likes to rock to a crazy song"
+    },
+    {
+      "time": 59.74,
+      "end": 63.469,
+      "text": "Every night she's a-wailin' on"
+    },
+    {
+      "time": 64.68,
+      "end": 69.209,
+      "text": "She's a chick with a wicked twitch"
+    },
+    {
+      "time": 71.62,
+      "end": 73.64,
+      "text": "She's my witch"
+    },
+    {
+      "time": 95.459,
+      "end": 99.75,
+      "text": "Likes to drag in a goin' mill"
+    },
+    {
+      "time": 100.609,
+      "end": 104.689,
+      "text": "Plays a-chicken just for the thrill"
+    },
+    {
+      "time": 105.76,
+      "end": 109.799,
+      "text": "Till you wind up in a ditch"
+    },
+    {
+      "time": 109.799,
+      "end": 114.79,
+      "text": "Mmm, she's my witch"
+    }
+  ],
+  "Cowboys_and_Angels.mp3": [
+    {
+      "time": 67.329,
+      "end": 71.23,
+      "text": "When your heart's in someone else's hands"
+    },
+    {
+      "time": 72.159,
+      "end": 74.0,
+      "text": "Monkey see and monkey do"
+    },
+    {
+      "time": 74.299,
+      "end": 76.98,
+      "text": "Their wish is your command"
+    },
+    {
+      "time": 78.54,
+      "end": 80.099,
+      "text": "You're not to blame"
+    },
+    {
+      "time": 81.659,
+      "end": 83.43,
+      "text": "Everyone's the same"
+    },
+    {
+      "time": 89.219,
+      "end": 93.439,
+      "text": "All you do is love and love is all you do"
+    },
+    {
+      "time": 94.739,
+      "end": 98.909,
+      "text": "I should know by now the way I fought for you"
+    },
+    {
+      "time": 100.989,
+      "end": 111.42,
+      "text": "You're not to blame, everyone's the same, mmm-whoa"
+    },
+    {
+      "time": 111.5,
+      "end": 115.26,
+      "text": "I know you think that you're safe"
+    },
+    {
+      "time": 115.299,
+      "end": 116.34,
+      "text": "Mister"
+    },
+    {
+      "time": 116.62,
+      "end": 118.78,
+      "text": "Harmless deception"
+    },
+    {
+      "time": 118.78,
+      "end": 121.26,
+      "text": "That keeps love at bay"
+    },
+    {
+      "time": 121.519,
+      "end": 126.84,
+      "text": "It's the ones who resist that we most want to kiss"
+    },
+    {
+      "time": 126.959,
+      "end": 129.9,
+      "text": "Wouldn't you say?"
+    },
+    {
+      "time": 133.36,
+      "end": 135.78,
+      "text": "Cowboys and angels"
+    },
+    {
+      "time": 135.78,
+      "end": 139.409,
+      "text": "They all have the time for you"
+    },
+    {
+      "time": 139.5,
+      "end": 144.909,
+      "text": "Why should I imagine that I'd be a find for you"
+    },
+    {
+      "time": 145.06,
+      "end": 147.539,
+      "text": "Why should I imagine"
+    },
+    {
+      "time": 147.81,
+      "end": 152.09,
+      "text": "That I'd have something to say"
+    },
+    {
+      "time": 159.539,
+      "end": 162.55,
+      "text": "But that scar on your face"
+    },
+    {
+      "time": 165.159,
+      "end": 168.87,
+      "text": "That beautiful face of yours"
+    },
+    {
+      "time": 170.68,
+      "end": 173.849,
+      "text": "In your heart there's a trace"
+    },
+    {
+      "time": 174.039,
+      "end": 178.21,
+      "text": "Of someone before"
+    },
+    {
+      "time": 182.639,
+      "end": 186.169,
+      "text": "When your heart's in someone else's plans"
+    },
+    {
+      "time": 187.3,
+      "end": 189.61,
+      "text": "Things you say and things you do"
+    },
+    {
+      "time": 189.68,
+      "end": 192.319,
+      "text": "They don't understand"
+    },
+    {
+      "time": 193.719,
+      "end": 195.02,
+      "text": "It's such a shame"
+    },
+    {
+      "time": 196.879,
+      "end": 199.03,
+      "text": "Always ends the same"
+    },
+    {
+      "time": 202.78,
+      "end": 208.9,
+      "text": "You can call it love but I don't think it's true"
+    },
+    {
+      "time": 209.719,
+      "end": 212.039,
+      "text": "You should know by now"
+    },
+    {
+      "time": 212.039,
+      "end": 213.9,
+      "text": "I'm not the boy for you"
+    },
+    {
+      "time": 213.979,
+      "end": 217.75,
+      "text": "You're not to blame"
+    },
+    {
+      "time": 219.379,
+      "end": 222.36,
+      "text": "Always ends the same"
+    },
+    {
+      "time": 226.479,
+      "end": 230.34,
+      "text": "I know you think that you're safe"
+    },
+    {
+      "time": 230.36,
+      "end": 231.5,
+      "text": "Sister"
+    },
+    {
+      "time": 231.8,
+      "end": 236.419,
+      "text": "Harmless affection that keeps things this way"
+    },
+    {
+      "time": 236.639,
+      "end": 241.86,
+      "text": "It's the ones who persist for the sake of a kiss"
+    },
+    {
+      "time": 242.02,
+      "end": 245.849,
+      "text": "Who will pay"
+    },
+    {
+      "time": 248.479,
+      "end": 251.0,
+      "text": "Cowboys and angels"
+    },
+    {
+      "time": 251.0,
+      "end": 254.479,
+      "text": "They all take a shine to you"
+    },
+    {
+      "time": 254.68,
+      "end": 260.3,
+      "text": "Why should I imagine that I was designed for you"
+    },
+    {
+      "time": 260.839,
+      "end": 263.259,
+      "text": "Why should I believe"
+    },
+    {
+      "time": 264.5,
+      "end": 268.689,
+      "text": "That you would stay"
+    },
+    {
+      "time": 274.72,
+      "end": 277.72,
+      "text": "But that scar on your face"
+    },
+    {
+      "time": 280.56,
+      "end": 284.389,
+      "text": "That beautiful face of yours"
+    },
+    {
+      "time": 285.649,
+      "end": 288.629,
+      "text": "Don't you think that I'd know"
+    },
+    {
+      "time": 288.86,
+      "end": 293.519,
+      "text": "They've hurt you before"
+    },
+    {
+      "time": 296.839,
+      "end": 300.24,
+      "text": "Take this man to your bed"
+    },
+    {
+      "time": 300.66,
+      "end": 306.899,
+      "text": "Maybe his hands will help you forget"
+    },
+    {
+      "time": 307.68,
+      "end": 313.0,
+      "text": "Please be stronger than your past"
+    },
+    {
+      "time": 314.509,
+      "end": 329.509,
+      "text": "The future may still give you a chance"
+    }
+  ],
+  "Nine Inch Nails - Closer.mp3": [
+    {
+      "time": 22.213,
+      "end": 27.256,
+      "text": "You let me violate you"
+    },
+    {
+      "time": 27.269,
+      "end": 32.471,
+      "text": "You let me desecrate you"
+    },
+    {
+      "time": 32.472,
+      "end": 38.1,
+      "text": "You let me penetrate you"
+    },
+    {
+      "time": 38.1,
+      "end": 40.469,
+      "text": "You let me complicate you"
+    },
+    {
+      "time": 43.13,
+      "end": 46.149,
+      "text": "(Help me) I broke apart my insides"
+    },
+    {
+      "time": 48.409,
+      "end": 52.25,
+      "text": "(Help me) I've got no soul to sell"
+    },
+    {
+      "time": 53.689,
+      "end": 58.67,
+      "text": "(Help me) the only thing that works for me"
+    },
+    {
+      "time": 58.929,
+      "end": 63.079,
+      "text": "Help me get away from myself"
+    },
+    {
+      "time": 63.079,
+      "end": 67.42,
+      "text": "I wanna fuck you like an animal"
+    },
+    {
+      "time": 67.42,
+      "end": 72.859,
+      "text": "I wanna feel you from the inside"
+    },
+    {
+      "time": 72.859,
+      "end": 78.159,
+      "text": "I wanna fuck you like an animal"
+    },
+    {
+      "time": 78.159,
+      "end": 83.42,
+      "text": "My whole existence is flawed"
+    },
+    {
+      "time": 83.42,
+      "end": 98.42,
+      "text": "You get me closer to God"
+    },
+    {
+      "time": 107.079,
+      "end": 112.379,
+      "text": "You can have my isolation"
+    },
+    {
+      "time": 112.379,
+      "end": 116.15,
+      "text": "You can have the hate that it brings"
+    },
+    {
+      "time": 117.609,
+      "end": 120.76,
+      "text": "You can have my absence of faith"
+    },
+    {
+      "time": 120.76,
+      "end": 127.709,
+      "text": "You can have my everything"
+    },
+    {
+      "time": 138.0,
+      "end": 138.23,
+      "text": "you tear down my reason"
+    },
+    {
+      "time": 138.23,
+      "end": 138.51,
+      "text": "(Help me) it's your sex I can smell"
+    },
+    {
+      "time": 138.51,
+      "end": 141.07,
+      "text": "(Help me) you make me perfect"
+    },
+    {
+      "time": 141.07,
+      "end": 147.46,
+      "text": "Help me become somebody else"
+    },
+    {
+      "time": 147.46,
+      "end": 150.169,
+      "text": "I wanna fuck you like an animal"
+    },
+    {
+      "time": 152.65,
+      "end": 158.08,
+      "text": "I wanna feel you from the inside"
+    },
+    {
+      "time": 158.08,
+      "end": 161.15,
+      "text": "I wanna fuck you like an animal"
+    },
+    {
+      "time": 163.33,
+      "end": 168.18,
+      "text": "My whole existence is flawed"
+    },
+    {
+      "time": 168.18,
+      "end": 183.18,
+      "text": "You get me closer to God"
+    },
+    {
+      "time": 220.159,
+      "end": 221.9,
+      "text": "Through every forest"
+    },
+    {
+      "time": 221.9,
+      "end": 236.9,
+      "text": "Above the trees"
+    },
+    {
+      "time": 245.5,
+      "end": 249.16,
+      "text": "Within my stomach"
+    },
+    {
+      "time": 249.16,
+      "end": 264.16,
+      "text": "Scraped off my knees"
+    },
+    {
+      "time": 299.827,
+      "end": 308.488,
+      "text": "I drink the honey"
+    },
+    {
+      "time": 308.489,
+      "end": 309.965,
+      "text": "Inside your hive"
+    },
+    {
+      "time": 309.965,
+      "end": 324.965,
+      "text": "You are the reason"
+    },
+    {
+      "time": 339.567,
+      "end": 354.567,
+      "text": "I stay alive"
+    }
+  ],
+  "Adadido - He Asked Me to Quit Smoking.mp3": [
+    {
+      "time": 1.649,
+      "end": 4.25,
+      "text": "We broke up"
+    },
+    {
+      "time": 5.25,
+      "end": 9.98,
+      "text": "He asked me to quit smoking but I can't"
+    },
+    {
+      "time": 11.109,
+      "end": 15.89,
+      "text": "I said go fuck yourself baby cuz we're done"
+    },
+    {
+      "time": 16.91,
+      "end": 23.85,
+      "text": "One more pathetic ending only to forget about"
+    },
+    {
+      "time": 24.589,
+      "end": 26.48,
+      "text": "Now I'm drunk"
+    },
+    {
+      "time": 28.07,
+      "end": 32.899,
+      "text": "Maybe this wine is better than a boyfriend"
+    },
+    {
+      "time": 33.829,
+      "end": 38.689,
+      "text": "Maybe my life already reached a dead end"
+    },
+    {
+      "time": 39.689,
+      "end": 46.679,
+      "text": "I have my youth and beauty but they all have gone to waste"
+    },
+    {
+      "time": 47.409,
+      "end": 49.679,
+      "text": "Fucking sad"
+    },
+    {
+      "time": 51.13,
+      "end": 55.659,
+      "text": "I thought those pretty boys like you could save me"
+    },
+    {
+      "time": 56.689,
+      "end": 59.939,
+      "text": "But all they did was making me so empty"
+    }
+  ]
+}
