@@ -14,7 +14,7 @@
       "source": "captions/My witch - Kip Tyler.vtt",
       "cueCount": 16
     },
-    "Cowboys_and_Angels.mp3": {
+    "Cowboys and Angels.mp3": {
       "title": "Cowboys and Angels",
       "artist": "George Michael",
       "source": "captions/Cowboys and Angels.vtt",
@@ -30,7 +30,7 @@
       "title": "He Asked Me to Quit Smoking",
       "artist": "Adadido (cover)",
       "source": "captions/Adadido - He Asked Me to Quit Smoking.vtt",
-      "cueCount": 11
+      "cueCount": 24
     }
   },
   "My witch.mp3": [
@@ -115,7 +115,7 @@
       "text": "Mmm, she's my witch"
     }
   ],
-  "Cowboys_and_Angels.mp3": [
+  "Cowboys and Angels.mp3": [
     {
       "time": 67.329,
       "end": 71.23,
@@ -547,58 +547,123 @@
   "Adadido - He Asked Me to Quit Smoking.mp3": [
     {
       "time": 1.649,
-      "end": 4.25,
+      "end": 4.099,
       "text": "We broke up"
     },
     {
-      "time": 5.25,
-      "end": 9.98,
+      "time": 5.4,
+      "end": 9.83,
       "text": "He asked me to quit smoking but I can't"
     },
     {
-      "time": 11.109,
-      "end": 15.89,
+      "time": 11.259,
+      "end": 15.74,
       "text": "I said go fuck yourself baby cuz we're done"
     },
     {
-      "time": 16.91,
-      "end": 23.85,
+      "time": 17.059,
+      "end": 23.699,
       "text": "One more pathetic ending only to forget about"
     },
     {
-      "time": 24.589,
-      "end": 26.48,
+      "time": 24.739,
+      "end": 26.329,
       "text": "Now I'm drunk"
     },
     {
-      "time": 28.07,
-      "end": 32.899,
+      "time": 28.219,
+      "end": 32.75,
       "text": "Maybe this wine is better than a boyfriend"
     },
     {
-      "time": 33.829,
-      "end": 38.689,
+      "time": 33.979,
+      "end": 38.539,
       "text": "Maybe my life already reached a dead end"
     },
     {
-      "time": 39.689,
-      "end": 46.679,
+      "time": 39.84,
+      "end": 46.53,
       "text": "I have my youth and beauty but they all have gone to waste"
     },
     {
-      "time": 47.409,
-      "end": 49.679,
+      "time": 47.56,
+      "end": 49.53,
       "text": "Fucking sad"
     },
     {
-      "time": 51.13,
-      "end": 55.659,
+      "time": 51.28,
+      "end": 55.509,
       "text": "I thought those pretty boys like you could save me"
     },
     {
-      "time": 56.689,
-      "end": 59.939,
+      "time": 56.84,
+      "end": 60.579,
       "text": "But all they did was making me so empty"
+    },
+    {
+      "time": 60.74,
+      "end": 67.68,
+      "text": "I guess I'm better on my own"
+    },
+    {
+      "time": 71.54,
+      "end": 77.719,
+      "text": "Nothing's gonna give me more pleasure"
+    },
+    {
+      "time": 77.859,
+      "end": 81.219,
+      "text": "Don't have no one to be my savior"
+    },
+    {
+      "time": 81.78,
+      "end": 85.95,
+      "text": "If I stay I'll get trapped forever"
+    },
+    {
+      "time": 86.4,
+      "end": 92.439,
+      "text": "I'm so sick of being a loser"
+    },
+    {
+      "time": 92.7,
+      "end": 101.26,
+      "text": "I'll go paint my nails black, so charming"
+    },
+    {
+      "time": 101.26,
+      "end": 106.12,
+      "text": "Dye my hair the color that I like"
+    },
+    {
+      "time": 106.159,
+      "end": 113.549,
+      "text": "Live the life my girl and it'll be fine"
+    },
+    {
+      "time": 116.299,
+      "end": 117.939,
+      "text": "Now I'm gone"
+    },
+    {
+      "time": 119.719,
+      "end": 124.4,
+      "text": "Walking on the empty street all alone"
+    },
+    {
+      "time": 125.379,
+      "end": 129.87,
+      "text": "But I don't give a shit about right or wrong"
+    },
+    {
+      "time": 131.039,
+      "end": 138,
+      "text": "Slow dancing with my shadow singing to my favorite song"
+    },
+    {
+      "time": 138.919,
+      "end": 140.639,
+      "text": "How devine"
     }
   ]
 }
