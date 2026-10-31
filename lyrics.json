@@ -1,10 +1,11 @@
 {
   "_meta": {
-    "format": "local-webvtt-converted",
+    "format": "local-timed-lyrics",
     "version": 1,
-    "timing": "Timestamps are seconds from the beginning of the matching local MP3. Start and end values are preserved from the supplied VTT files.",
-    "synchronization": "Line-level timing. The supplied VTT files do not contain word-level timestamps.",
-    "networkRequiredForLyrics": false
+    "timing": "Cue start and end values are seconds from the beginning of the matching audio file.",
+    "synchronization": "Line-level timing.",
+    "networkRequiredForLyrics": false,
+    "sourceNote": "Sup FUCKER."
   },
   "_tracks": {
     "My witch.mp3": {

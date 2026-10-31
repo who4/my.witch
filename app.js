@@ -1,56 +1,56 @@
+/* Sup FUCKER. */
 (() => {
   "use strict";
 
-  // These filenames are expected to sit in the same folder as index.html.
+  // Sup FUCKER. Check the playlist.
   const TRACKS = [
     {
       title: "She's My Witch",
       artist: "Kip Tyler",
       file: "My witch.mp3",
-      letter: "W",
-      colors: ["#352039", "#bb6f9c"]
+      coverNames: ["My witch", "She's My Witch"],
+      colors: ["#32151d", "#6e2431"]
     },
     {
       title: "Cowboys and Angels",
       artist: "George Michael",
-      file: "Cowboys_and_Angels.mp3",
-      letter: "C",
-      colors: ["#263345", "#a78c9d"]
+      file: "cowboys and angels.mp3",
+      coverNames: ["Cowboys_and_Angels", "Cowboys and Angels"],
+      colors: ["#151820", "#4a3941"]
     },
     {
       title: "Closer",
       artist: "Nine Inch Nails",
       file: "Nine Inch Nails - Closer.mp3",
-      letter: "N",
-      colors: ["#17171e", "#806b78"]
+      coverNames: ["Nine Inch Nails - Closer", "Closer"],
+      colors: ["#100e12", "#4e2630"]
     },
     {
       title: "He Asked Me to Quit Smoking",
       artist: "Adadido · cover",
       file: "Adadido - He Asked Me to Quit Smoking.mp3",
-      letter: "A",
-      colors: ["#30212e", "#d58ba9"]
+      coverNames: ["Adadido - He Asked Me to Quit Smoking", "He Asked Me to Quit Smoking"],
+      colors: ["#231418", "#713243"]
     }
   ];
 
+  const COVER_EXTENSIONS = ["webp", "jpg", "jpeg", "png", "avif"];
   const SVG_FILE = "./brand-hello-kitty-svgrepo-com.svg";
+
   const audio = document.getElementById("audio");
   const player = document.querySelector(".music-player");
   const rainLayer = document.getElementById("rain-layer");
-  const playlist = document.getElementById("playlist");
-  const titleNode = document.getElementById("track-title");
-  const artistNode = document.getElementById("track-artist");
-  const art = document.getElementById("album-art");
-  const artLetter = document.getElementById("art-letter");
+  const artwork = document.getElementById("album-artwork");
+  const coverImage = document.getElementById("album-cover");
+  const songTitle = document.getElementById("song-title");
+  const artistName = document.getElementById("artist-name");
   const playButton = document.getElementById("play-button");
-  const artPlay = document.getElementById("art-play");
   const previousButton = document.getElementById("previous-button");
   const nextButton = document.getElementById("next-button");
-  const seekbar = document.getElementById("seekbar");
-  const seekFill = document.getElementById("seek-fill");
-  const currentTimeNode = document.getElementById("current-time");
-  const totalTimeNode = document.getElementById("total-time");
-  const messageNode = document.getElementById("player-message");
+  const volumeUpButton = document.getElementById("volume-up");
+  const volumeDownButton = document.getElementById("volume-down");
+  const controlOverlay = document.getElementById("btn-overlay");
+  const statusNode = document.getElementById("player-status");
 
   let currentIndex = 0;
   let lyricsByTrack = {};
@@ -59,6 +59,7 @@
   let lastAudioTime = 0;
   let activeCueIndex = -1;
   let particles = [];
+  let nextParticleId = 1;
   let lastFrame = 0;
   let lastSvgSpawn = 0;
   let svgSpawnInterval = 1050;
@@ -66,97 +67,78 @@
 
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+  function fitPlayerOnMobile() {
+    if (!player) return;
+
+    if (window.matchMedia("(max-width: 620px)").matches) {
+      const availableWidth = Math.max(1, window.innerWidth - 32);
+      const scale = Math.min(0.72, availableWidth / 697);
+      player.style.setProperty("--mobile-player-scale", String(scale));
+    } else {
+      player.style.removeProperty("--mobile-player-scale");
+    }
+  }
+
+  fitPlayerOnMobile();
+  window.addEventListener("resize", fitPlayerOnMobile, { passive: true });
+
+  audio.volume = 0.5;
+
   function encodeLocalFile(filename) {
-    // encodeURI preserves slashes and safely handles spaces in local filenames.
-    return "./" + encodeURIComponent(filename).replace(/%2F/g, "/");
+    return "./" + filename.split("/").map(encodeURIComponent).join("/");
   }
 
-  function formatTime(seconds) {
-    if (!Number.isFinite(seconds) || seconds < 0) return "--:--";
-    const minutes = Math.floor(seconds / 60);
-    const remainingSeconds = Math.floor(seconds % 60);
-    return String(minutes).padStart(2, "0") + ":" + String(remainingSeconds).padStart(2, "0");
+  function setStatus(message) {
+    statusNode.textContent = message;
   }
 
-  function setMessage(message) {
-    messageNode.textContent = message;
+  // Sup FUCKER.
+  function updateCover(track) {
+    coverImage.hidden = true;
+    coverImage.removeAttribute("src");
+    artwork.classList.remove("has-cover");
+
+    const baseName = track.file.replace(/\.[^.]+$/, "");
+    const coverNames = track.coverNames || [baseName];
+    let nameIndex = 0;
+    let extensionIndex = 0;
+
+    function tryNextCover() {
+      if (nameIndex >= coverNames.length) return;
+
+      const candidate = "./covers/" + encodeURIComponent(coverNames[nameIndex]) + "." + COVER_EXTENSIONS[extensionIndex];
+      extensionIndex += 1;
+      if (extensionIndex >= COVER_EXTENSIONS.length) {
+        extensionIndex = 0;
+        nameIndex += 1;
+      }
+
+      const probe = new Image();
+      probe.onload = () => {
+        coverImage.src = candidate;
+        coverImage.hidden = false;
+        artwork.classList.add("has-cover");
+      };
+      probe.onerror = tryNextCover;
+      probe.src = candidate;
+    }
+
+    tryNextCover();
   }
 
-  function buildPlaylist() {
-    playlist.innerHTML = "";
-    TRACKS.forEach((track, index) => {
-      const item = document.createElement("li");
-      item.className = "track-row";
-      item.dataset.index = String(index);
-      item.setAttribute("role", "button");
-      item.setAttribute("tabindex", "0");
-      item.setAttribute("aria-label", "Play " + track.title);
-
-      const thumb = document.createElement("span");
-      thumb.className = "track-thumb";
-      thumb.textContent = track.letter;
-      thumb.style.background = `linear-gradient(135deg, ${track.colors[0]}, ${track.colors[1]})`;
-
-      const copy = document.createElement("span");
-      copy.className = "track-row-copy";
-
-      const rowTitle = document.createElement("span");
-      rowTitle.className = "track-row-title";
-      rowTitle.textContent = track.title;
-
-      const rowArtist = document.createElement("span");
-      rowArtist.className = "track-row-artist";
-      rowArtist.textContent = track.artist || "Artist detected from audio";
-      copy.append(rowTitle, rowArtist);
-
-      const duration = document.createElement("span");
-      duration.className = "track-duration";
-      duration.textContent = "--:--";
-
-      item.append(thumb, copy, duration);
-      item.addEventListener("click", () => loadTrack(index, true));
-      item.addEventListener("keydown", (event) => {
-        if (event.key === "Enter" || event.key === " ") {
-          event.preventDefault();
-          loadTrack(index, true);
-        }
-      });
-      playlist.appendChild(item);
-
-      // Read only metadata so the playlist can show song lengths without
-      // downloading the whole track into memory.
-      const probe = new Audio();
-      probe.preload = "metadata";
-      probe.src = encodeLocalFile(track.file);
-      probe.addEventListener("loadedmetadata", () => {
-        duration.textContent = formatTime(probe.duration);
-      }, { once: true });
-      probe.addEventListener("error", () => {
-        duration.textContent = "--:--";
-      }, { once: true });
-    });
-  }
-
-  function updatePlayerDetails() {
+  function updateTrackDetails() {
     const track = TRACKS[currentIndex];
-    titleNode.textContent = track.title;
-    artistNode.textContent = track.artist;
-    artLetter.textContent = track.letter;
-    art.style.setProperty("--cover-a", track.colors[0]);
-    art.style.setProperty("--cover-b", track.colors[1]);
-    document.querySelectorAll(".track-row").forEach((row, index) => {
-      const selected = index === currentIndex;
-      row.classList.toggle("is-active", selected);
-      row.setAttribute("aria-current", selected ? "true" : "false");
-      const rowArtist = row.querySelector(".track-row-artist");
-      if (rowArtist) rowArtist.textContent = TRACKS[index].artist || "Artist detected from audio";
-    });
+    songTitle.textContent = track.title;
+    artistName.textContent = track.artist;
+    artwork.style.setProperty("--cover-a", track.colors[0]);
+    artwork.style.setProperty("--cover-b", track.colors[1]);
+    updateCover(track);
   }
 
   function setPlayingState(isPlaying) {
     player.classList.toggle("is-playing", isPlaying);
     playButton.setAttribute("aria-label", isPlaying ? "Pause" : "Play");
-    artPlay.setAttribute("aria-label", isPlaying ? "Pause" : "Play");
+    playButton.title = isPlaying ? "Pause" : "Play";
   }
 
   async function togglePlayback() {
@@ -164,27 +146,24 @@
       try {
         await audio.play();
         setPlayingState(true);
-        setMessage("Now playing · timed lyrics follow the recording");
+        setStatus("Now playing: " + TRACKS[currentIndex].title);
       } catch (error) {
         setPlayingState(false);
-        setMessage("Could not play this file. Check its filename and browser support.");
+        setStatus("Could not play this MP3. Check the filename and make sure the audio file is uploaded.");
       }
     } else {
       audio.pause();
       setPlayingState(false);
-      setMessage("Paused");
+      setStatus("Paused: " + TRACKS[currentIndex].title);
     }
   }
 
   function loadTrack(index, autoplay) {
     if (index < 0 || index >= TRACKS.length) return;
 
-    const wasPlaying = !audio.paused;
     audio.pause();
     currentIndex = index;
-    currentCues = Array.isArray(lyricsByTrack[TRACKS[index].file])
-      ? normalizeCues(lyricsByTrack[TRACKS[index].file])
-      : [];
+    currentCues = normalizeCues(lyricsByTrack[TRACKS[index].file] || []);
     firedCues = new Set();
     lastAudioTime = 0;
     activeCueIndex = -1;
@@ -192,28 +171,25 @@
 
     audio.src = encodeLocalFile(TRACKS[index].file);
     audio.load();
-    updatePlayerDetails();
-    seekFill.style.width = "0%";
-    currentTimeNode.textContent = "00:00";
-    totalTimeNode.textContent = "--:--";
+    updateTrackDetails();
     setPlayingState(false);
-    setMessage(currentCues.length
-      ? "Local timed lyrics loaded · press play"
-      : "No local timed lyrics are available for this track.");
 
-    if (autoplay || wasPlaying) {
+    setStatus(currentCues.length
+      ? "Loaded " + currentCues.length + " timed lyric lines for " + TRACKS[index].title
+      : "No local timed lyrics found for " + TRACKS[index].title);
+
+    if (autoplay) {
       audio.play().then(() => {
         setPlayingState(true);
-        setMessage("Now playing · timed lyrics follow the recording");
+        setStatus("Now playing: " + TRACKS[index].title);
       }).catch(() => {
         setPlayingState(false);
-        setMessage("Could not play this file. Check its filename and browser support.");
+        setStatus("Could not play this MP3. Check the filename and make sure the audio file is uploaded.");
       });
     }
   }
 
   function normalizeCues(input) {
-    // Keep valid cues only and sort them by their start time.
     return input
       .filter((cue) => cue && Number.isFinite(Number(cue.time)) && typeof cue.text === "string")
       .map((cue) => ({
@@ -227,56 +203,57 @@
 
   async function loadLyrics() {
     try {
-      // All lyrics are stored locally in lyrics.json; no API or network lookup is used.
       const response = await fetch("./lyrics.json", { cache: "no-store" });
       if (!response.ok) throw new Error("lyrics.json could not be loaded");
       lyricsByTrack = await response.json();
       currentCues = normalizeCues(lyricsByTrack[TRACKS[currentIndex].file] || []);
-      if (currentCues.length) {
-        setMessage("Local timed lyrics loaded · press play");
-      } else {
-        setMessage("No local timed lyrics found for this track.");
-      }
+      setStatus("Local timed lyrics ready. Press play.");
     } catch (error) {
       lyricsByTrack = {};
       currentCues = [];
-      setMessage("Could not load lyrics.json · run this page through a local web server.");
+      setStatus("Could not load lyrics.json. Run this page through a local web server.");
     }
   }
 
-  function updateTimeUI() {
-    const duration = audio.duration;
-    const current = audio.currentTime || 0;
-    currentTimeNode.textContent = formatTime(current);
-    totalTimeNode.textContent = formatTime(duration);
-    const percentage = Number.isFinite(duration) && duration > 0 ? (current / duration) * 100 : 0;
-    seekFill.style.width = `${Math.max(0, Math.min(100, percentage))}%`;
-    seekbar.setAttribute("aria-valuenow", String(Math.round(percentage)));
+  function normalizeVolume() {
+    audio.volume = Math.max(0, Math.min(1, Math.round(audio.volume * 10) / 10));
   }
 
-  function seekToPointer(event) {
-    if (!Number.isFinite(audio.duration) || audio.duration <= 0) return;
-    const bounds = seekbar.getBoundingClientRect();
-    const fraction = Math.max(0, Math.min(1, (event.clientX - bounds.left) / bounds.width));
-    audio.currentTime = fraction * audio.duration;
-    handleSeek();
-    updateTimeUI();
+  function changeVolume(amount) {
+    audio.volume = Math.max(0, Math.min(1, Math.round((audio.volume + amount) * 10) / 10));
+    setStatus("Volume: " + Math.round(audio.volume * 100) + "%");
   }
 
-  function handleSeek() {
-    const time = audio.currentTime || 0;
-    // On a seek, don't spray every skipped lyric at once. Mark the past cues as
-    // already handled and show only the line that belongs at the new position.
-    firedCues = new Set();
-    for (let index = 0; index < currentCues.length; index += 1) {
-      if (currentCues[index].time <= time) firedCues.add(index);
-    }
-    clearLyricParticles();
-    activeCueIndex = findActiveCueIndex(time);
-    if (activeCueIndex >= 0) {
-      spawnLyric(currentCues[activeCueIndex], activeCueIndex);
-    }
-    lastAudioTime = time;
+  function addPressEffect(button, direction) {
+    const add = () => {
+      if (direction === "play") button.classList.add("pressed");
+      else controlOverlay.classList.add(direction);
+    };
+    const remove = () => {
+      if (direction === "play") button.classList.remove("pressed");
+      else controlOverlay.classList.remove(direction);
+    };
+
+    button.addEventListener("pointerdown", add);
+    ["pointerup", "pointerleave", "pointercancel", "blur"].forEach((eventName) => {
+      button.addEventListener(eventName, remove);
+    });
+  }
+
+  function enableKeyboardControl(control) {
+    control.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        control.click();
+      }
+    });
+  }
+
+  function formatTime(seconds) {
+    if (!Number.isFinite(seconds) || seconds < 0) return "--:--";
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = Math.floor(seconds % 60);
+    return String(minutes).padStart(2, "0") + ":" + String(remainingSeconds).padStart(2, "0");
   }
 
   function findActiveCueIndex(time) {
@@ -316,8 +293,10 @@
     const height = Math.max(20, bounds.height);
     const maxX = Math.max(4, window.innerWidth - width - 4);
     const particle = {
+      id: nextParticleId++,
       type: "lyric",
       element,
+      isCurrent: cueIndex === activeCueIndex,
       x: 4 + Math.random() * Math.max(0, maxX - 4),
       y: -height - 12,
       width,
@@ -343,8 +322,10 @@
     rainLayer.appendChild(image);
     const maxX = Math.max(0, window.innerWidth - size);
     const particle = {
+      id: nextParticleId++,
       type: "svg",
       element: image,
+      isCurrent: false,
       x: Math.random() * maxX,
       y: -size - 8,
       width: size,
@@ -372,12 +353,22 @@
     }
   }
 
+  function handleSeek() {
+    const time = audio.currentTime || 0;
+    firedCues = new Set();
+    for (let index = 0; index < currentCues.length; index += 1) {
+      if (currentCues[index].time <= time) firedCues.add(index);
+    }
+    clearLyricParticles();
+    activeCueIndex = findActiveCueIndex(time);
+    if (activeCueIndex >= 0) spawnLyric(currentCues[activeCueIndex], activeCueIndex);
+    lastAudioTime = time;
+  }
+
   function syncLyrics() {
     if (audio.paused || !currentCues.length) return;
     const now = audio.currentTime || 0;
 
-    // A backwards seek is handled by the seeked event; this also catches
-    // browser/player time jumps that don't emit it reliably.
     if (now < lastAudioTime - 0.45) handleSeek();
 
     for (let index = 0; index < currentCues.length; index += 1) {
@@ -393,6 +384,7 @@
       if (particle.type !== "lyric") return;
       const cue = currentCues[particle.cueIndex];
       const isCurrent = particle.cueIndex === activeCueIndex;
+      particle.isCurrent = isCurrent;
       particle.element.classList.toggle("is-current", isCurrent);
 
       const wordSpans = particle.element.querySelectorAll(".rain-word");
@@ -432,47 +424,69 @@
   window.addEventListener("pointercancel", () => { pointer.active = false; }, { passive: true });
   window.addEventListener("pointerleave", () => { pointer.active = false; }, { passive: true });
 
-  function resolveCollisions() {
-    // Simple 2D separation: objects are pushed sideways when their bounding
-    // boxes overlap, so lyrics and falling SVGs do not sit on top of each other.
+  // Sup FUCKER.
+  function getParticleMass(particle) {
+    if (particle.type === "lyric" && particle.isCurrent) return 5.0;
+    if (particle.type === "lyric") return 2.0;
+    return 0.65;
+  }
+
+  function getCollisionSize(particle) {
+    const radians = particle.rotation * Math.PI / 180;
+    const cosine = Math.abs(Math.cos(radians));
+    const sine = Math.abs(Math.sin(radians));
+    return {
+      width: particle.width * cosine + particle.height * sine,
+      height: particle.width * sine + particle.height * cosine
+    };
+  }
+
+  // Sup FUCKER.
+  function resolveCollisions(delta) {
+    const stiffness = 18;       // lower = softer, slower push
+    const damping = 8;          // removes rebound and stops jitter
+    const maxForce = 900;       // prevents sudden impulses on deep overlap
+    const minOverlap = 0.5;     // ignore sub-pixel contact noise
+
+    const collisionBounds = particles.map((particle) => {
+      const size = getCollisionSize(particle);
+      return {
+        centerX: particle.x + particle.width / 2,
+        centerY: particle.y + particle.height / 2,
+        halfWidth: size.width / 2,
+        halfHeight: size.height / 2
+      };
+    });
+
     for (let first = 0; first < particles.length; first += 1) {
       const a = particles[first];
+      const boundsA = collisionBounds[first];
+      const inverseMassA = 1 / getParticleMass(a);
+
       for (let second = first + 1; second < particles.length; second += 1) {
         const b = particles[second];
-        const centerAX = a.x + a.width / 2;
-        const centerAY = a.y + a.height / 2;
-        const centerBX = b.x + b.width / 2;
-        const centerBY = b.y + b.height / 2;
-        const overlapX = (a.width + b.width) / 2 - Math.abs(centerAX - centerBX);
-        const overlapY = (a.height + b.height) / 2 - Math.abs(centerAY - centerBY);
+        const boundsB = collisionBounds[second];
+        const overlapX = boundsA.halfWidth + boundsB.halfWidth - Math.abs(boundsA.centerX - boundsB.centerX);
+        const overlapY = boundsA.halfHeight + boundsB.halfHeight - Math.abs(boundsA.centerY - boundsB.centerY);
 
-        if (overlapX <= 0 || overlapY <= 0) continue;
+        if (overlapX <= minOverlap || overlapY <= minOverlap) continue;
 
-        const direction = centerAX === centerBX ? (Math.random() > 0.5 ? 1 : -1) : Math.sign(centerAX - centerBX);
-        const push = overlapX / 2 + 1.5;
-        const oldAX = a.x;
-        const oldBX = b.x;
-        a.x += direction * push;
-        b.x -= direction * push;
+        let directionX = Math.sign(boundsB.centerX - boundsA.centerX);
+        if (directionX === 0) directionX = a.id < b.id ? 1 : -1;
 
-        const maxAX = Math.max(0, window.innerWidth - a.width);
-        const maxBX = Math.max(0, window.innerWidth - b.width);
-        a.x = Math.max(0, Math.min(maxAX, a.x));
-        b.x = Math.max(0, Math.min(maxBX, b.x));
-        a.vx += direction * 12;
-        b.vx -= direction * 12;
+        const inverseMassB = 1 / getParticleMass(b);
+        const relativeVelocityX = (b.vx - a.vx) * directionX;
 
-        // If the viewport edge prevents enough horizontal separation, stagger
-        // their vertical positions slightly as a fallback.
-        const stillOverlapX = (a.width + b.width) / 2 - Math.abs((a.x + a.width / 2) - (b.x + b.width / 2));
-        if (stillOverlapX > 0) {
-          if (a.y <= b.y) a.y -= overlapY + 2;
-          else b.y -= overlapY + 2;
-        }
-        if (a.x === oldAX && b.x === oldBX && overlapY > 0) {
-          if (a.y <= b.y) a.y -= overlapY + 2;
-          else b.y -= overlapY + 2;
-        }
+        const force = Math.max(0, Math.min(maxForce,
+          stiffness * overlapX - damping * relativeVelocityX
+        ));
+        if (force <= 0) continue;
+
+        a.vx -= directionX * force * inverseMassA * delta;
+        b.vx += directionX * force * inverseMassB * delta;
+
+        a.vx = Math.max(-95, Math.min(95, a.vx));
+        b.vx = Math.max(-95, Math.min(95, b.vx));
       }
     }
   }
@@ -488,17 +502,15 @@
     }
 
     if (pointer.active && now > pointer.until) pointer.active = false;
-
     if (!audio.paused) syncLyrics();
 
     for (let index = particles.length - 1; index >= 0; index -= 1) {
       const particle = particles[index];
-      particle.vx *= Math.pow(0.992, delta * 60);
+      particle.vx *= Math.pow(.992, delta * 60);
       particle.x += particle.vx * delta;
       particle.y += particle.vy * delta;
       particle.rotation += particle.spin * delta;
 
-      // A pointer/touch gently repels the falling objects.
       if (pointer.active) {
         const centerX = particle.x + particle.width / 2;
         const centerY = particle.y + particle.height / 2;
@@ -509,7 +521,7 @@
         if (distance < radius) {
           const force = (1 - distance / radius) * (pointer.touch ? 175 : 115);
           particle.vx += (dx / distance) * force * delta;
-          particle.vy -= force * 0.08 * delta;
+          particle.vy -= force * .08 * delta;
         }
       }
 
@@ -525,58 +537,53 @@
       }
     }
 
-    resolveCollisions();
+    resolveCollisions(delta);
     particles.forEach(drawParticle);
     requestAnimationFrame(animate);
   }
 
   playButton.addEventListener("click", togglePlayback);
-  artPlay.addEventListener("click", togglePlayback);
   previousButton.addEventListener("click", () => {
-    loadTrack(Math.max(0, currentIndex - 1), true);
+    loadTrack((currentIndex - 1 + TRACKS.length) % TRACKS.length, true);
   });
   nextButton.addEventListener("click", () => {
-    loadTrack(Math.min(TRACKS.length - 1, currentIndex + 1), true);
+    loadTrack((currentIndex + 1) % TRACKS.length, true);
   });
-  seekbar.addEventListener("pointerdown", (event) => {
-    seekToPointer(event);
-  });
-  seekbar.addEventListener("keydown", (event) => {
-    if (event.key === "ArrowLeft" && Number.isFinite(audio.duration)) audio.currentTime = Math.max(0, audio.currentTime - 5);
-    if (event.key === "ArrowRight" && Number.isFinite(audio.duration)) audio.currentTime = Math.min(audio.duration, audio.currentTime + 5);
-  });
+  volumeUpButton.addEventListener("click", () => changeVolume(.1));
+  volumeDownButton.addEventListener("click", () => changeVolume(-.1));
 
-  audio.addEventListener("loadedmetadata", () => {
-    updateTimeUI();
-    if (currentCues.length) setMessage("Local timed lyrics loaded · press play");
-  });
-  audio.addEventListener("timeupdate", () => {
-    updateTimeUI();
-    syncLyrics();
-  });
-  audio.addEventListener("seeked", () => {
-    handleSeek();
-    updateTimeUI();
-  });
+  addPressEffect(playButton, "play");
+  addPressEffect(previousButton, "left");
+  addPressEffect(nextButton, "right");
+  addPressEffect(volumeUpButton, "up");
+  addPressEffect(volumeDownButton, "down");
+
+  [playButton, previousButton, nextButton, volumeUpButton, volumeDownButton].forEach(enableKeyboardControl);
+
   audio.addEventListener("play", () => setPlayingState(true));
   audio.addEventListener("pause", () => setPlayingState(false));
+  audio.addEventListener("seeking", handleSeek);
+  audio.addEventListener("seeked", handleSeek);
+  audio.addEventListener("timeupdate", syncLyrics);
   audio.addEventListener("ended", () => {
-    if (currentIndex < TRACKS.length - 1) loadTrack(currentIndex + 1, true);
-    else {
-      setPlayingState(false);
-      setMessage("Playlist finished");
-    }
+    loadTrack((currentIndex + 1) % TRACKS.length, true);
   });
   audio.addEventListener("error", () => {
     setPlayingState(false);
-    setMessage("Audio file not found · put the MP3 beside index.html");
+    setStatus("Audio file missing or unreadable. Check the MP3 filename in the project root.");
   });
 
-  buildPlaylist();
-  updatePlayerDetails();
-  loadLyrics().then(() => {
-    // Start with the first song only after the JSON configuration is ready.
-    loadTrack(0, false);
-  });
-  requestAnimationFrame(animate);
+  async function initialize() {
+    updateTrackDetails();
+    audio.src = encodeLocalFile(TRACKS[0].file);
+    audio.load();
+    await loadLyrics();
+    currentCues = normalizeCues(lyricsByTrack[TRACKS[currentIndex].file] || []);
+    setPlayingState(false);
+    requestAnimationFrame(animate);
+  }
+
+  initialize();
+
+  // Sup FUCKER. That is all.
 })();
