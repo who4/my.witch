@@ -51,6 +51,7 @@
   const volumeDownButton = document.getElementById("volume-down");
   const controlOverlay = document.getElementById("btn-overlay");
   const statusNode = document.getElementById("player-status");
+  const gallerySticker = document.getElementById("gallery-sticker");
   const easterEggGif = document.getElementById("easter-egg-gif");
   const EASTER_EGG_DURATION = 5200;
 
@@ -67,6 +68,8 @@
   let svgSpawnInterval = 1050;
   let pointer = { x: -1000, y: -1000, active: false, touch: false, until: 0 };
   let easterEggTimer = null;
+  let stickerTapCount = 0;
+  let stickerTapTimer = null;
 
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -110,6 +113,20 @@
   }
 
   window.showKissingHeartEasterEgg = showEasterEgg;
+
+  function openGalleryAfterThreeTaps() {
+    stickerTapCount += 1;
+    clearTimeout(stickerTapTimer);
+
+    if (stickerTapCount === 3) {
+      window.location.href = "./gallery.html";
+      return;
+    }
+
+    stickerTapTimer = window.setTimeout(() => {
+      stickerTapCount = 0;
+    }, 700);
+  }
 
   // Sup FUCKER.
   function updateCover(track) {
@@ -442,6 +459,14 @@
   }, { passive: true });
   window.addEventListener("pointercancel", () => { pointer.active = false; }, { passive: true });
   window.addEventListener("pointerleave", () => { pointer.active = false; }, { passive: true });
+
+  gallerySticker.addEventListener("pointerup", openGalleryAfterThreeTaps);
+  gallerySticker.addEventListener("keydown", (event) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      openGalleryAfterThreeTaps();
+    }
+  });
 
   // Sup FUCKER.
   function getParticleMass(particle) {
